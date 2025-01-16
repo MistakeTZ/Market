@@ -1,0 +1,148 @@
+.search-results {
+  padding: 20px;
+}
+
+.search-container {
+  float: none;
+}
+  
+.search-bar[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  min-width: 30%;
+  margin-left: 33%;
+  border: none;
+  box-shadow: 0 0 2px #000000;
+}
+
+.search-container button {
+  float: none;
+  padding: 6px 10px;
+  margin-top: 8px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+  
+.search-container button:hover {
+  background: #ccc;
+}
+
+.fa-search:before{
+  content:"\f002"
+}
+
+.fa-trash-o:before {
+  content:"\f014"
+}
+
+.fa{
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering:auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+.category-bar {
+  display: flex;
+  gap: 10px; /* Расстояние между кнопками */
+  background-color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+.category-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+  
+.category-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+  
+.category-button:active {
+  background-color: #004080;
+}
+
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-title {
+  font-size: 1.5em;
+  margin: 0 0 8px;
+  color: #333;
+}
+
+.product-description {
+  font-size: 1em;
+  color: #666;
+  margin: 0 0 12px;
+}
+
+.product-category {
+  font-size: 0.9em;
+  color: #888;
+  margin: 0 0 8px;
+}
+
+.product-price {
+  font-size: 1.2em;
+  color: #2a9d8f;
+  font-weight: bold;
+}
+
+.previous-price {
+  font-size: 1em;
+  color: #e76f51;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.product-link {
+  text-decoration: none; /* Убираем подчёркивание */
+  color: inherit; /* Наследуем цвет текста */
+}
+
+.product-link:hover .product-card {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+  
+.product-icon {
+  flex: 0 1 10%;
+  min-height: 100px;
+}
+
+.product-icon img {
+  height: 140px;
+  width: 140px;
+}
+
+.product-info {
+  flex: 0 1 100%;
+  min-height: 100px;
+}

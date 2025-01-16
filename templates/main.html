@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block title %}Online Market{% endblock %}
+
+{% block content %}
+{% if products %}
+<div class="products-grid">
+    {% for product in products %}
+    <a href="/product/{{ product.slug }}/" class="product-link">
+        <div class="product-card">
+            <div class="product-icon">
+                <img src="{{ product.image }}">
+                <h2 class="product-title">{{ product.name }}</h2>
+            </div>
+            <div class="product-info">
+                <p class="product-description">{{ product.description }}</p>
+                <p class="product-price">
+                    {% if product.previous_price %}
+                    <span class="previous-price">{{ "%.2f" % product.previous_price }} ⳁ</span>
+                    {% endif %}
+                    {{ "%.2f" % product.price }} ⳁ
+                </p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,117 @@
+
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/product.css') }}">
+{% endblock %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="product">
+    <div class="product-container">
+        <!-- Список миниатюр -->
+        <div class="thumbnail-list">
+            {% for image in product.images %}
+            <img src="{{ image }}" alt="{{ product.name }}" class="{{ 'active' if loop.first else '' }}" data-large="{{ image }}">
+            {% endfor %}
+        </div>
+        <!-- Основное изображение -->
+        <div class="main-image">
+            <img src="{{ product.images[0] }}" alt="{{ product.name }}" id="main-image">
+        </div>
+    </div>
+    <div class="product-info">
+        <h2 style="font-size: 1.5em;">{{ product.name }}</h2>
+        <p class="description-label" style="color: black;">Описание:</p>
+        <p>{{ product.description }}</p>
+    </div>
+    <div class="product-buy">
+        <p class="description-label">Цена:</p>
+        <p class="product-price">
+            {% if product.previous_price %}
+            <span class="previous-price">{{ "%.2f" % product.previous_price }} ⳁ</span>
+            {% endif %}
+            {{ "%.2f" % product.price }} ⳁ
+        </p>
+        <label for="quantity">Осталось: {{ product.count }}</label>
+        {% if quantity == 0 %}
+        <button id="add-button" class="product-button add-to-cart" onclick="updateCart('add')">В корзину</button>
+        <div id="controls" style="display:none;">
+            <button onclick="updateCart('remove')" class="edit-count">-</button>
+            <span id="quantity-display">{{ quantity }}</span>
+            <button onclick="updateCart('add')" class="edit-count" style="float:right;">+</button>
+        </div>
+        {% else %}
+        <button id="add-button" class="product-button add-to-cart" onclick="updateCart('add')" style="display:none;">В корзину</button>
+        <div id="controls">
+            <button onclick="updateCart('remove')" class="edit-count">-</button>
+            <span id="quantity-display">{{ quantity }}</span>
+            <button onclick="updateCart('add')" class="edit-count" style="float:right;">+</button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="same">
+    <h2>Похожие товары:</h2>
+</div>
+
+<script>
+    const thumbnails = document.querySelectorAll('.thumbnail-list img');
+        const mainImage = document.getElementById('main-image');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                // Убираем класс active у всех миниатюр
+                thumbnails.forEach(img => img.classList.remove('active'));
+                // Добавляем класс active к выбранной миниатюре
+                thumbnail.classList.add('active');
+                // Меняем основное изображение
+                mainImage.src = thumbnail.dataset.large;
+            });
+        });
+
+        document.getElementById('add-to-cart-form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение формы
+        const formData = new FormData(this); // Сериализуем данные формы
+
+        fetch('/add_to_cart', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message); // Выводим сообщение об успехе
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+    });
+
+    async function updateCart(action) {
+            const response = await fetch("/update-cart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ action: action, product_id: "{{ product.id }}" }),
+            });
+            const data = await response.json();
+            const quantity = data.quantity;// Обновление DOM
+
+            const controls = document.getElementById("controls");
+            const addButton = document.getElementById("add-button");
+            const quantityDisplay = document.getElementById("quantity-display");
+
+            if (quantity > 0) {
+                addButton.style.display = "none";
+                controls.style.display = "flex";
+                quantityDisplay.innerText = quantity;
+            } else {
+                addButton.style.display = "block";
+                controls.style.display = "none";
+            }
+        }
+</script>
+{% endblock %}

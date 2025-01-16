@@ -1,0 +1,30 @@
+.cart {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.cart-products {
+    flex: 3;
+}
+
+.cart-buy {
+    flex: 2;
+    background-color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-buttons {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.cart-buttons button {
+    min-width: 40px;
+    min-height: 40px;
+    flex: 1 1 auto;
+}
