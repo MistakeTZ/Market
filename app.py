@@ -5,6 +5,7 @@ from database.model import (
    select,
    fields
 )
+from config import HOST, PORT
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Замените на свой ключ
@@ -137,7 +138,7 @@ def update_cart():
 if __name__ == '__main__':
     get_db_connection()
     try:
-        app.run()
+        app.run(host=HOST, port=PORT)
     except Exception as e:
         print(e)
     finally:
